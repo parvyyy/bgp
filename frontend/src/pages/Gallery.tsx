@@ -3,7 +3,6 @@ import { sessions } from '../data/sessions'
 import Page from '../components/Page'
 import PhotoSlider from '../components/PhotoSlider'
 import TagSearch from '../components/TagSearch'
-import Typewriter from '../components/Typewriter'
 
 // Turns "2026-10-24" into "24 Oct 2026".
 function formatDate(date: string) {
@@ -12,15 +11,6 @@ function formatDate(date: string) {
     month: 'short',
     year: 'numeric',
   })
-}
-
-// Number of sessions whose date starts with `prefix`, e.g. "2026-10".
-function playedIn(prefix: string) {
-  return sessions.filter((session) => session.date.startsWith(prefix)).length
-}
-
-function times(count: number) {
-  return count === 1 ? '1 time' : `${count} times`
 }
 
 // Every tag used in any session, most used first.
@@ -54,17 +44,8 @@ function Gallery() {
     setParams({ tag: tags }, { replace: true })
   const shown = sessions.filter((session) => selected.every((tag) => session.tags.includes(tag)))
 
-  const today = new Date().toLocaleDateString('en-CA') // local "YYYY-MM-DD"
-  const phrases = [
-    `${times(playedIn(today.slice(0, 7)))} this month`,
-    `${times(playedIn(today.slice(0, 4)))} this year`,
-    `${times(sessions.length)} in total`,
-  ]
-
   return (
     <Page>
-      <Typewriter prefix="You've played " phrases={phrases} />
-
       <div className="mb-10 flex items-center justify-between text-left">
         <p className="text-pencil">
           {shown.length === sessions.length

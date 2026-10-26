@@ -8,6 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <header className="relative flex items-center px-6 py-5">
+        {/* TODO: Replace with a small image that changes on hover */}
         <Link to="/" className="text-3xl font-bold">
           P
         </Link>
@@ -30,12 +31,16 @@ function App() {
   )
 }
 
-// A sketched nav button; the current page gets an accent fill.
-function NavItem({ to, children }: { to: string; children: string }) {
+type NavItemProps = {
+  to: string
+  children: React.ReactNode
+}
+
+function NavItem({ to, children }: NavItemProps) {
   return (
     <NavLink
       to={to}
-      className="relative isolate px-4.5 pt-1.5 pb-1 text-[1.375rem] transition-transform hover:scale-103 hover:-rotate-[1.2deg] aria-[current=page]:text-paper"
+      className="relative isolate px-6 py-2 text-2xl transition-transform hover:scale-105 hover:-rotate-2"
     >
       {({ isActive }) => (
         <>

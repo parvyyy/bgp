@@ -9,7 +9,7 @@ function Sketch({ filled = false }: { filled?: boolean }) {
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      {filled && <path className="fill-accent" d="M5 4 L95 7 L96 34 L4 36 Z" />}
+      {filled && <path className="fill-blue/50" d="M5 4 L95 7 L96 34 L4 36 Z" />}
       <path
         className="fill-none stroke-ink"
         strokeWidth={2.6}
