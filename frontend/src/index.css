@@ -1,0 +1,66 @@
+/* Hand-drawn "paper and ink" look, inspired by strategyjam.org.
+   Styling lives in the components as Tailwind classes; this file only has
+   the theme and a few things that don't fit in a class name. */
+
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #f6efe4;
+  --color-card: #fffaf0;
+  --color-ink: #151515;
+  --color-pencil: #5f5b55;
+  --color-accent: #1b2be8;
+  --color-accent-light: #3c5ef0;
+  --color-yellow: #fff04f; /* the tape on photo cards */
+  --color-green: #2f9e44;
+  --color-red: #e1141d; /* connect four: your pieces */
+  --color-mustard: #1b2be8; /* connect four: the bot's pieces (a yellow that shows on paper) */
+
+  --font-hand: 'Patrick Hand', 'Comic Sans MS', cursive;
+
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-drop: drop 0.4s cubic-bezier(0.55, 0, 1, 0.45);
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* A piece falling into place; set --fall to how far above it starts. */
+  @keyframes drop {
+    from {
+      translate: 0 var(--fall);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-hand text-xl/[1.3] text-ink antialiased;
+
+    /* Faint isometric dot grid: dots 24px apart, with every other row
+       shifted by half a step (row height is 24px * sqrt(3) / 2). */
+    --dot: radial-gradient(circle, rgb(21 21 21 / 0.13) 1px, transparent 1.5px);
+    background-image: var(--dot), var(--dot);
+    background-size: 24px 41.57px;
+    background-position: 0 0, 12px 20.78px;
+  }
+}
+
+/* A slightly wavy pencil line, used as a mask: give the element a height
+   and a background colour (the rule under the header). */
+@utility wavy-line {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 8' preserveAspectRatio='none'%3E%3Cpath d='M-4 4.2C200 5.6 420 2.6 700 4.4S1180 5.4 1444 3.4' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
+
+/* Uneven corners that make a box look hand-cut. */
+@utility rounded-wobbly {
+  border-radius: 6px 14px 5px 18px / 16px 5px 14px 6px;
+}
+
+/* Zigzag ends, like a strip of torn tape. */
+@utility torn {
+  clip-path: polygon(0 0, 100% 0, 96% 25%, 100% 50%, 96% 75%, 100% 100%, 0 100%, 4% 75%, 0 50%, 4% 25%);
+}
