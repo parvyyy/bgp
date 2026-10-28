@@ -6,7 +6,7 @@ function Home() {
   return (
     <Page>
       <div className="flex flex-col items-center gap-16 text-center ">
-        <Introduction />
+        {/* <Introduction /> */}
         <ConnectFour />
       </div>
     </Page>

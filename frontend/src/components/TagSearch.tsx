@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Tag from './Tag'
 
 const DEBOUNCE_MS = 150
 const MAX_SUGGESTIONS = 5
@@ -61,15 +62,7 @@ function TagSearch({ tags, selected, onChange }: Props) {
   return (
     <div className="relative flex w-80 flex-wrap items-center gap-1.5 border-b-[2.6px] border-ink px-1 py-1">
       {selected.map((tag) => (
-        <button
-          key={tag}
-          type="button"
-          className="cursor-pointer rounded-[5px_7px_4px_6px] bg-accent px-2.5 pt-[0.2rem] pb-px text-[0.95rem] text-paper"
-          aria-label={`Remove ${tag}`}
-          onClick={() => onChange(selected.filter((t) => t !== tag))}
-        >
-          {tag} ×
-        </button>
+        <Tag key={tag} label={tag} active removable onClick={() => onChange(selected.filter((t) => t !== tag))} />
       ))}
 
       <input
@@ -102,7 +95,7 @@ function TagSearch({ tags, selected, onChange }: Props) {
               id={`tag-suggestion-${i}`}
               role="option"
               aria-selected={i === active}
-              className="cursor-pointer rounded px-2.5 pt-1 pb-0.5 aria-selected:bg-accent/15"
+              className="cursor-pointer rounded px-2.5 pt-1 pb-0.5 aria-selected:bg-blue/20"
               onMouseEnter={() => setActive(i)}
               onMouseDown={(event) => {
                 event.preventDefault()

@@ -6,7 +6,7 @@ function Chevron({ left = false }: { left?: boolean }) {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className={`size-[30px] fill-none stroke-paper drop-shadow-[0_1px_3px_rgb(0_0_0/0.6)] ${left ? '-scale-x-100' : ''}`}
+      className={`size-[30px] fill-none stroke-paper drop-shadow-[0_1px_3px_rgb(21_21_21/0.6)] ${left ? '-scale-x-100' : ''}`}
       strokeWidth={3}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -19,7 +19,7 @@ function Chevron({ left = false }: { left?: boolean }) {
 // Each arrow is a clickable strip down one side of the photo. It appears on
 // hover, and darkens slightly toward its edge when hovered itself.
 const arrow =
-  'absolute inset-y-0 flex w-[18%] cursor-pointer items-center justify-center opacity-0 transition group-hover/photo:opacity-80 focus-visible:opacity-80 hover:opacity-100! hover:from-black/15 hover:to-transparent'
+  'absolute inset-y-0 flex w-[18%] cursor-pointer items-center justify-center opacity-0 transition group-hover/photo:opacity-80 focus-visible:opacity-80 hover:opacity-100! hover:from-ink/15 hover:to-transparent'
 
 // Shows one photo at a time. With more than one photo, dots in the top-left
 // show which one you're on, and arrows let you step through them (no

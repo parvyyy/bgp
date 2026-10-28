@@ -8,9 +8,14 @@ function App() {
   return (
     <BrowserRouter>
       <header className="relative flex items-center px-6 py-5">
-        {/* TODO: Replace with a small image that changes on hover */}
-        <Link to="/" className="text-3xl font-bold">
-          P
+        {/* Square logo: drop an image at public/images/logo.png. Until then
+            it's an empty hand-cut square. */}
+        <Link
+          to="/"
+          aria-label="Home"
+          className="rounded-wobbly block size-12 overflow-hidden border-[2.6px] border-ink bg-card transition-transform hover:scale-105 hover:-rotate-3"
+        >
+          <img src="/images/logo.png" alt="" className="size-full object-cover" onError={(e) => (e.currentTarget.hidden = true)} />
         </Link>
         <nav className="ml-auto flex gap-7">
           <NavItem to="/games">Games</NavItem>

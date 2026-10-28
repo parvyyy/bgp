@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router'
 import { sessions } from '../data/sessions'
 import Page from '../components/Page'
 import PhotoSlider from '../components/PhotoSlider'
+import Tag from '../components/Tag'
 import TagSearch from '../components/TagSearch'
 
 // Turns "2026-10-24" into "24 Oct 2026".
@@ -42,6 +43,8 @@ function Gallery() {
   const selected = params.getAll('tag')
   const setSelected = (tags: string[]) =>
     setParams({ tag: tags }, { replace: true })
+  const toggle = (tag: string) =>
+    setSelected(selected.includes(tag) ? selected.filter((t) => t !== tag) : [...selected, tag])
   const shown = sessions.filter((session) => selected.every((tag) => session.tags.includes(tag)))
 
   return (
@@ -61,7 +64,7 @@ function Gallery() {
         {shown.map((session, i) => (
           <article
             key={session.id}
-            className={`rounded-wobbly relative border-[2.6px] border-ink bg-card px-3.5 pt-3.5 pb-5 shadow-[3px_4px_0_rgb(0_0_0/0.08)] transition hover:scale-102 hover:rotate-0 ${TILTS[i % TILTS.length]}`}
+            className={`rounded-wobbly relative border-[2.6px] border-ink bg-card px-3.5 pt-3.5 pb-5 shadow-[3px_4px_0_rgb(21_21_21/0.08)] transition hover:scale-102 hover:rotate-0 ${TILTS[i % TILTS.length]}`}
           >
             <span className={`torn absolute z-10 h-[26px] w-[90px] bg-yellow/50 ${TAPES[i % TAPES.length]}`} />
 
@@ -71,14 +74,12 @@ function Gallery() {
               </time>
             </PhotoSlider>
 
-            {/* Only one line of tags: any that don't fit wrap out of sight. */}
-            <ul className="mt-3.5 flex h-6 flex-wrap gap-1.5 overflow-hidden">
+            {/* Only one line of tags: any that don't fit wrap out of sight.
+                Clicking one adds it to (or removes it from) the filter. */}
+            <ul className="mt-3 flex h-7 flex-wrap items-center gap-1.5 overflow-hidden">
               {session.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="h-6 rounded-[5px_7px_4px_6px] bg-slate-400 px-2.5 pt-[0.2rem] text-[0.95rem]/[1.3] whitespace-nowrap text-paper"
-                >
-                  {tag}
+                <li key={tag}>
+                  <Tag label={tag} active={selected.includes(tag)} onClick={() => toggle(tag)} />
                 </li>
               ))}
             </ul>
